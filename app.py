@@ -15,10 +15,13 @@ def reset_app():
 with st.sidebar:
     st.title("⚙️ Panel Kontrol")
     if "GROQ_API_KEY" in st.secrets:
-    api_key = st.secrets["GROQ_API_KEY"]
+        st.success("✅ API Key terdeteksi dari sistem!")
+        api_key = st.secrets["GROQ_API_KEY"]
     else:
-    api_key = st.text_input("Masukkan Groq API Key", type="password")
-
+        # Jika dijalankan lokal/tanpa secrets, minta input manual
+        api_key = st.text_input("Masukkan Groq API Key", type="password")
+        if not api_key:
+            st.warning("⚠️ Masukkan API Key untuk memulai.")
     st.divider()
     # TOMBOL RESET ADA DI SINI
     if st.button("🔄 Reset / Rekam Ulang", type="primary", use_container_width=True):
